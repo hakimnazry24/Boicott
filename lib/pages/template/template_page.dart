@@ -17,7 +17,7 @@ class TemplatePage extends StatefulWidget {
 }
 
 class _TemplatePageState extends State<TemplatePage> {
-  int currentIndex = 1;
+  int currentIndex = 0;
   List<Widget> pages = [
     HomePage(),
     ListPage(),
