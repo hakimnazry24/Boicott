@@ -1,4 +1,4 @@
-import 'package:boicott/pages/home_page/home_page.dart';
+import 'package:boicott/pages/template/template_page.dart';
 import 'package:boicott/pages/introduction_page/introduction_page_1.dart';
 import 'package:boicott/pages/introduction_page/introduction_page_2.dart';
 import 'package:boicott/pages/introduction_page/introduction_page_3.dart';
@@ -35,7 +35,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
         children: <Widget>[
           PageView(
             controller: controller,
-            children: <Widget>[
+            children: const <Widget>[
               IntroductionPage1(),
               IntroductionPage2(),
               IntroductionPage3(),
@@ -53,7 +53,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 child: SmoothPageIndicator(
                   controller: controller,
                   count: 5,
-                  effect: ColorTransitionEffect(activeDotColor: Colors.white),
+                  effect: const ColorTransitionEffect(activeDotColor: Colors.white),
                 ),
               ),
             ),
@@ -64,8 +64,8 @@ class _IntroductionPageState extends State<IntroductionPage> {
           ? FloatingActionButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
-            }, child: Icon(Icons.forward),)
+                  context, MaterialPageRoute(builder: (context) => const TemplatePage()));
+            }, child: const Icon(Icons.forward),)
           : null,
           
     );

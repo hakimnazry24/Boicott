@@ -6,7 +6,7 @@ class IntroductionPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(85, 124, 85, 1),
+      backgroundColor: const Color.fromRGBO(85, 124, 85, 1),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
