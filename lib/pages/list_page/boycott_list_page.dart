@@ -1,13 +1,49 @@
+import 'package:boicott/components/ProductCard.dart';
+import 'package:boicott/util/product_list.dart';
 import 'package:flutter/material.dart';
 
 class BoycottListPage extends StatelessWidget {
-  const BoycottListPage({super.key});
+  final boycottProducts =
+      products.where((product) => product.isBoycott).toList();
+
+  BoycottListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("boyycott list"),
-
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Boycott products"),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+                textAlign: TextAlign.left,
+                "Find boycott product based on Company name, Product name or bar code number."),
+            const SizedBox(
+              height: 10,
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                  hintText: "Coca-cola company or Nestle",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25)))),
+            ),
+            const SizedBox(height: 50,),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                children: List.generate(boycottProducts.length, (index) {
+                  return ProductCard(product: boycottProducts[index]);
+                }),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

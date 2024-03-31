@@ -1,17 +1,16 @@
-import 'package:boicott/pages/home_page/home_page.dart';
-import 'package:boicott/pages/list_page/list_page.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
   final Function(int) onItemTapped;
-  int currentIndex;
+  final int currentIndex;
 
-  BottomNavBar(
+  const BottomNavBar(
       {super.key, required this.onItemTapped, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       onTap: (index) => onItemTapped(index),
       showUnselectedLabels: true,
       selectedItemColor: const Color.fromRGBO(250, 112, 112, 1),
