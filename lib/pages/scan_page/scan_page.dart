@@ -5,6 +5,9 @@ class ScanPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(); // empty container because users are redirected back to home page after scanning, or if users decide to cancel the scan
+    /*  Empty container because users are redirected back to home page after scanning, or if users decide to cancel the scan
+        Scan function is located in TemplatePage
+    */
+    return Container();
   }
 }

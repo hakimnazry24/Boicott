@@ -7,7 +7,13 @@ import 'package:boicott/pages/list_page/list_page.dart';
 import 'package:boicott/pages/scan_page/scan_page.dart';
 import 'package:flutter/material.dart';
 import "package:boicott/util/product_list.dart";
+/* 
+  TemplatePage contains BottomNavBar that persists in HomePage, ListPage, ScanPage, 
+  ChatPage, and AboutPage
 
+  The only changing part in TemplatePage is the body
+
+ */
 class TemplatePage extends StatefulWidget {
   const TemplatePage({super.key});
 
@@ -54,8 +60,8 @@ class _TemplatePageState extends State<TemplatePage> {
   Future<void> scanBarCode() async {
     String result = "";
     try {
-      var _qrResult = await BarcodeScanner.scan();
-      result = _qrResult.rawContent;
+      var scanResult = await BarcodeScanner.scan();
+      result = scanResult.rawContent;
       setState(() {
         qrResult = result;
         print("\n\n\n\n\n\n\n\n\n$result");
