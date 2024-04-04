@@ -1,3 +1,4 @@
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:boicott/components/BottomNavBar.dart';
 import 'package:boicott/pages/about_page/about_page.dart';
 import 'package:boicott/pages/chat_page/chat_page.dart';
@@ -16,13 +17,21 @@ class TemplatePage extends StatefulWidget {
 
 class _TemplatePageState extends State<TemplatePage> {
   int currentIndex = 0;
-  List<Widget> pages = [
-    HomePage(),
-    const ListPage(),
-    const ScanPage(),
-    const ChatPage(),
-    const AboutPage(),
-  ];
+  String qrResult = "";
+  List<Widget> pages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      HomePage(),
+      const ListPage(),
+      const ScanPage(),
+      const ChatPage(),
+      const AboutPage(),
+    ];
+  }
+
   final boycottProducts =
       products.where((product) => product.isBoycott).toList();
 
@@ -33,11 +42,36 @@ class _TemplatePageState extends State<TemplatePage> {
     setState(() {
       currentIndex = index;
     });
+
+    if (index == 2) {
+      scanBarCode();
+      setState(() {
+        currentIndex = 0; // redirect back to home page after scanning or if cancel scanning
+      });
+    }
+  }
+
+  Future<void> scanBarCode() async {
+    String result = "";
+    try {
+      var _qrResult = await BarcodeScanner.scan();
+      result = _qrResult.rawContent;
+      setState(() {
+        qrResult = result;
+        print("\n\n\n\n\n\n\n\n\n$result");
+      });
+    } catch (e) {
+      result = "Error $e";
+      print("\n\n\n\n\n\n\n\n\n$result");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(qrResult),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: pages[currentIndex],
