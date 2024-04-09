@@ -2,9 +2,9 @@ import 'package:boicott/models/product.dart';
 import 'package:flutter/material.dart';
 import "package:url_launcher/url_launcher.dart";
 
-class BoycottSupportDialog extends StatelessWidget {
+class BoycottDialog extends StatelessWidget {
   final Product product;
-  const BoycottSupportDialog({super.key, required this.product});
+  const BoycottDialog({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {

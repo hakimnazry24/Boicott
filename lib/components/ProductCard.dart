@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              content: BoycottSupportDialog(product: product,),
+              content: BoycottDialog(product: product,),
             );
           },
         );
