@@ -1,4 +1,4 @@
-import 'package:boicott/components/BoycottSupportDialog.dart';
+import 'package:boicott/components/BoycottDialog.dart';
 import 'package:boicott/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -24,10 +24,10 @@ class ProductCard extends StatelessWidget {
         child: Card(
           child: Column(
             children: [
-              Expanded(
-                  child: Image.asset(
-                product.image,
-              )),
+              // Expanded(
+              //     child: Image.asset(
+              //   product.image,
+              // )),
               const SizedBox(
                 height: 10,
               ),

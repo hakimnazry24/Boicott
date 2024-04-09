@@ -1,17 +1,20 @@
 import 'dart:convert';
 
 import 'package:boicott/models/company.dart';
+import 'package:boicott/models/product.dart';
 import 'package:boicott/models/retailer.dart';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 
 class DataProvider extends ChangeNotifier {
+  List<Product> supportProducts = [];
+  List<Product> boycottProducts = [];
+  List<Product> neutralProducts = [];
   List<Company> supportCompanies = [];
   List<Company> boycottCompanies = [];
   List<Company> neutralCompanies = [];
 
   Future<void> fetchAllData() async {
-    print("hellow");
     Uri supportProductsUri =
         Uri.parse("https://boicott-api.motionu.club/support-products");
     Uri boycottProductsUri =
@@ -31,8 +34,7 @@ class DataProvider extends ChangeNotifier {
     var supportCompaniesResponse = await http.get(supportCompaniesUri);
     var boycottCompaniesResponse = await http.get(boycottCompaniesUri);
     var neutralCompaniesResponse = await http.get(neutralCompaniesUri);
-    print(boycottCompaniesResponse.body);
-    print("anoter hello owrld");
+
     List supportProductsJson = jsonDecode(supportProductsResponse.body);
     List boycottProductsJson = jsonDecode(boycottProductsResponse.body);
     List neutralProductsJson = jsonDecode(neutralProductsResponse.body);
@@ -40,21 +42,21 @@ class DataProvider extends ChangeNotifier {
     List boycottCompaniesJson = jsonDecode(boycottCompaniesResponse.body);
     List neutralCompaniesJson = jsonDecode(neutralCompaniesResponse.body);
 
-    print("anoht ae");
-    // List<Product> supportProduct = supportProductsJson.map((e) => )
+    supportProducts =
+        supportProductsJson.map((e) => Product.fromJson(e)).toList();
+    boycottProducts =
+        boycottProductsJson.map((e) => Product.fromJson(e)).toList();
+    neutralProducts =
+        neutralProductsJson.map((e) => Product.fromJson(e)).toList();
 
     supportCompanies =
         supportCompaniesJson.map((e) => Company.fromJson(e)).toList();
-    print("setstate");
     boycottCompanies =
         boycottCompaniesJson.map((e) => Company.fromJson(e)).toList();
-    print("inside");
     neutralCompanies =
         neutralCompaniesJson.map((e) => Company.fromJson(e)).toList();
 
-    print(boycottCompanies![0].name);
 
-    print("below set state");
     notifyListeners();
   }
 }

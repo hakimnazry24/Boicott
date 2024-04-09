@@ -38,12 +38,6 @@ class _TemplatePageState extends State<TemplatePage> {
     ];
   }
 
-  final boycottProducts =
-      products.where((product) => product.isBoycott).toList();
-
-  final supportProducts =
-      products.where((product) => !product.isBoycott).toList();
-
   void onItemTapped(int index) {
     setState(() {
       currentIndex = index;
