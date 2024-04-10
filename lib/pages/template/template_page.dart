@@ -7,6 +7,7 @@ import 'package:boicott/pages/list_page/list_page.dart';
 import 'package:boicott/pages/scan_page/scan_page.dart';
 import 'package:flutter/material.dart';
 import "package:boicott/util/product_list.dart";
+
 /* 
   TemplatePage contains BottomNavBar that persists in HomePage, ListPage, ScanPage, 
   ChatPage, and AboutPage
@@ -23,8 +24,42 @@ class TemplatePage extends StatefulWidget {
 
 class _TemplatePageState extends State<TemplatePage> {
   int currentIndex = 0;
-  String qrResult = "";
+  String barCodeResult = "";
   List<Widget> pages = [];
+
+  void changeBarCodeResult(String _barCodeResult) {
+    setState(() {
+      barCodeResult = _barCodeResult;
+    });
+  }
+
+  void onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+
+    // if (index == 2) {
+    //   scanBarCode();
+    //   setState(() {
+    //     currentIndex = 0; // redirect back to home page after scanning or if cancel scanning
+    //   });
+    // }
+  }
+
+  // Future<void> scanBarCode() async {
+  //   String result = "";
+  //   try {
+  //     var scanResult = await BarcodeScanner.scan();
+  //     result = scanResult.rawContent;
+  //     setState(() {
+  //       barCodeResult = result;
+  //       print("\n\n\n\n\n\n\n\n\n$result");
+  //     });
+  //   } catch (e) {
+  //     result = "Error $e";
+  //     print("\n\n\n\n\n\n\n\n\n$result");
+  //   }
+  // }
 
   @override
   void initState() {
@@ -38,39 +73,11 @@ class _TemplatePageState extends State<TemplatePage> {
     ];
   }
 
-  void onItemTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-
-    if (index == 2) {
-      scanBarCode();
-      setState(() {
-        currentIndex = 0; // redirect back to home page after scanning or if cancel scanning
-      });
-    }
-  }
-
-  Future<void> scanBarCode() async {
-    String result = "";
-    try {
-      var scanResult = await BarcodeScanner.scan();
-      result = scanResult.rawContent;
-      setState(() {
-        qrResult = result;
-        print("\n\n\n\n\n\n\n\n\n$result");
-      });
-    } catch (e) {
-      result = "Error $e";
-      print("\n\n\n\n\n\n\n\n\n$result");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(qrResult),
+        title: Text(barCodeResult),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),
