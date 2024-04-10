@@ -1,14 +1,18 @@
 import 'package:boicott/components/ProductCard.dart';
+import 'package:boicott/models/product.dart';
 import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SupportListPage extends StatelessWidget {
+  List<Product> products = [];
+  List<Product> supportProducts = [];
   SupportListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final supportProducts = Provider.of<DataProvider>(context).supportProducts;
+    products = Provider.of<DataProvider>(context).products;
+    supportProducts = products.where((product) => product.productStatus == 1).toList();
 
     return Scaffold(
       appBar: AppBar(

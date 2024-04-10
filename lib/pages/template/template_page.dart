@@ -1,12 +1,16 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:boicott/components/BottomNavBar.dart';
+import 'package:boicott/components/ProductSearch.dart';
+import 'package:boicott/models/product.dart';
 import 'package:boicott/pages/about_page/about_page.dart';
 import 'package:boicott/pages/chat_page/chat_page.dart';
 import 'package:boicott/pages/home_page/home_page.dart';
 import 'package:boicott/pages/list_page/list_page.dart';
 import 'package:boicott/pages/scan_page/scan_page.dart';
+import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import "package:boicott/util/product_list.dart";
+import 'package:provider/provider.dart';
 
 /* 
   TemplatePage contains BottomNavBar that persists in HomePage, ListPage, ScanPage, 
@@ -75,9 +79,19 @@ class _TemplatePageState extends State<TemplatePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Product> products = Provider.of<DataProvider>(context).products;
     return Scaffold(
       appBar: AppBar(
         title: Text(barCodeResult),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(
+                    context: context,
+                    delegate: ProductSearchDelegate(searchTerms: products));
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),

@@ -17,44 +17,24 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   String scanResult = "";
   Product? product;
-  List productAndProductStatus = [];
-  List<Product> supportProduct = [];
-  List<Product> boycottProduct = [];
-  List<Product> neutralProduct = [];
+  List<Product> products = [];
 
   @override
   void initState() {
     super.initState();
-    supportProduct =
-        Provider.of<DataProvider>(context, listen: false).supportProducts;
-    boycottProduct =
-        Provider.of<DataProvider>(context, listen: false).boycottProducts;
-    neutralProduct =
-        Provider.of<DataProvider>(context, listen: false).neutralProducts;
+    products = Provider.of<DataProvider>(context, listen: false).products;
   }
 
-  List findProductBasedOnSerialNumber(String scanResult) {
+  Product? findProductBasedOnSerialNumber(String scanResult) {
     int serialNumber = scanResult as int;
 
-    for (Product product in boycottProduct) {
+    for (Product product in products) {
       if (product.serialNumber == serialNumber) {
-        return [product, 2];
+        return product;
       }
     }
 
-    for (Product product in supportProduct) {
-      if (product.serialNumber == serialNumber) {
-        return [product, 1];
-      }
-    }
-    for (Product product in neutralProduct) {
-      if (product.serialNumber == serialNumber) {
-        return [product, 0];
-      }
-    }
-
-    // return [-1] if no product is found
-    return [-1];
+    return null;
   }
 
   @override
@@ -63,18 +43,18 @@ class _ScanPageState extends State<ScanPage> {
       onScan: (String value) {
         setState(() {
           scanResult = value;
-          productAndProductStatus = findProductBasedOnSerialNumber(scanResult);
+          product = findProductBasedOnSerialNumber(scanResult);
         });
 
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              if (productAndProductStatus[1] == 2) {
-                return BoycottDialog(product: productAndProductStatus[0]);
-              } else if (productAndProductStatus[1] == 1) {
-                return SupportDialog(product: productAndProductStatus[0]);
-              } else if (productAndProductStatus[1] == 1) {
-                return NeutralDialog(product: productAndProductStatus[0]);
+              if (product!.productStatus == 2) {
+                return BoycottDialog(product: product!);
+              } else if (product!.productStatus == 1) {
+                return SupportDialog(product: product!);
+              } else if (product!.productStatus == 1) {
+                return NeutralDialog(product: product!);
               } else {
                 return AlertDialog(
                   content: Text("Product not found"),

@@ -1,31 +1,60 @@
 import 'package:boicott/components/ProductCard.dart';
+import 'package:boicott/models/product.dart';
 import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import "package:boicott/util/product_list.dart";
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Product> products = [];
+  List<Product> boycottProducts = [];
+  List<Product> supportProducts = [];
+  final TextEditingController _filter = TextEditingController();
+  List<Product> _filteredProducts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filter.addListener(_searchListener);
+  }
+
+  void _searchListener() {
+    setState(() {
+      _filteredProducts = products
+          .where((product) =>
+              product.name.toLowerCase().contains(_filter.text.toLowerCase()))
+          .toList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final boycottProducts = Provider.of<DataProvider>(context).boycottProducts;
-    final supportProducts = Provider.of<DataProvider>(context).supportProducts;
-    
+    products = Provider.of<DataProvider>(context).products;
+    boycottProducts = products.where((product) => product.productStatus == 2).toList();
+    supportProducts = products.where((product) => product.productStatus == 1).toList();
+
     return Padding(
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
       child: Column(
         children: [
-          TextField(
-            decoration: InputDecoration(
-                hintText: "Search for product",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25)))),
-          ),
-          SizedBox(
-            height: 30,
-          ),
+          // TextField(
+          //   controller: _filter,
+          //   decoration: InputDecoration(
+          //       hintText: "Search for product",
+          //       prefixIcon: Icon(Icons.search),
+          //       border: OutlineInputBorder(
+          //           borderRadius: BorderRadius.all(Radius.circular(25)))),
+          // ),
+          // SizedBox(
+          //   height: 15,
+          // ),
           Container(
             child: Column(
               children: [

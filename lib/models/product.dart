@@ -4,6 +4,7 @@ class Product {
   int serialNumber;
   int retailerId;
   int companyId;
+  int productStatus;
 
   Product({
     required this.id,
@@ -11,6 +12,7 @@ class Product {
     required this.serialNumber,
     required this.retailerId,
     required this.companyId,
+    required this.productStatus,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Product {
       serialNumber: json["serial_number"],
       retailerId: json["retailer_id"],
       companyId: json["company_id"],
+      productStatus: json["status"],
     );
   }
 }

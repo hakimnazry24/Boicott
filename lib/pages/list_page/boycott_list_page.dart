@@ -1,14 +1,19 @@
 import 'package:boicott/components/ProductCard.dart';
+import 'package:boicott/models/product.dart';
 import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BoycottListPage extends StatelessWidget {
+  List<Product> boycottProducts = [];
+  
   BoycottListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final boycottProducts = Provider.of<DataProvider>(context).boycottProducts;
+    final products = Provider.of<DataProvider>(context).products;
+    boycottProducts =
+        products.where((product) => product.productStatus == 2).toList();
 
     return Scaffold(
       appBar: AppBar(
