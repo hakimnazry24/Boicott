@@ -1,5 +1,6 @@
 import 'package:ai_barcode_scanner/ai_barcode_scanner.dart';
 import 'package:boicott/components/BoycottDialog.dart';
+import 'package:boicott/components/NeutralDialog.dart';
 import 'package:boicott/components/SupportDialog.dart';
 import 'package:boicott/models/product.dart';
 import 'package:boicott/util/data_provider.dart';
@@ -73,9 +74,7 @@ class _ScanPageState extends State<ScanPage> {
               } else if (productAndProductStatus[1] == 1) {
                 return SupportDialog(product: productAndProductStatus[0]);
               } else if (productAndProductStatus[1] == 1) {
-                return AlertDialog(
-                  content: Text("Neutral product"),
-                );
+                return NeutralDialog(product: productAndProductStatus[0]);
               } else {
                 return AlertDialog(
                   content: Text("Product not found"),
