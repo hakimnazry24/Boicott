@@ -26,13 +26,16 @@ class NeutralDialog extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            // Image.asset(product.image, width: 200),
+            Image.network(
+                width: 120,
+                "https://boicott-api.motionu.club/images/neutral/${product.image}"),
             const SizedBox(
               height: 10,
             ),
             Text(
               product.name,
-              style: const TextStyle(fontSize: 15, color: Color.fromRGBO(44, 44, 44, 1)),
+              style: const TextStyle(
+                  fontSize: 15, color: Color.fromRGBO(44, 44, 44, 1)),
             ),
             const SizedBox(
               height: 20,

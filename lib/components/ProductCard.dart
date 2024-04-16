@@ -14,7 +14,9 @@ class ProductCard extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              content: BoycottDialog(product: product,),
+              content: BoycottDialog(
+                product: product,
+              ),
             );
           },
         );
@@ -24,10 +26,19 @@ class ProductCard extends StatelessWidget {
         child: Card(
           child: Column(
             children: [
-              // Expanded(
-              //     child: Image.asset(
-              //   product.image,
-              // )),
+              Expanded(
+                  child: product.productStatus == 0
+                      ? Image.network(width: 120,
+                          "https://boicott-api.motionu.club/images/neutral/${product.image}")
+                      : product.productStatus == 1
+                          ? Image.network(width: 120,
+                              "https://boicott-api.motionu.club/images/support/${product.image}")
+                          : product.productStatus == 2
+                              ? Image.network(width: 120,
+                                  "https://boicott-api.motionu.club/images/boycott/${product.image}")
+                              : Center(
+                                  child: Text("Product not found"),
+                                )),
               const SizedBox(
                 height: 10,
               ),

@@ -6,6 +6,7 @@ import 'package:boicott/pages/about_page/about_page.dart';
 import 'package:boicott/pages/chat_page/chat_page.dart';
 import 'package:boicott/pages/home_page/home_page.dart';
 import 'package:boicott/pages/list_page/list_page.dart';
+import 'package:boicott/pages/retailer_list_page/retailer_list_page.dart';
 import 'package:boicott/pages/scan_page/scan_page.dart';
 import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _TemplatePageState extends State<TemplatePage> {
     super.initState();
     pages = [
       HomePage(),
-      const ListPage(),
+      RetailerListPage(),
       const ScanPage(),
       const ChatPage(),
       const AboutPage(),

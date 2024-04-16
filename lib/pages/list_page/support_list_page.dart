@@ -1,5 +1,6 @@
 import 'package:boicott/components/ProductCard.dart';
 import 'package:boicott/models/product.dart';
+import 'package:boicott/models/retailer.dart';
 import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +13,12 @@ class SupportListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     products = Provider.of<DataProvider>(context).products;
-    supportProducts = products.where((product) => product.productStatus == 1).toList();
+    supportProducts =
+        products.where((product) => product.productStatus == 1).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Support products"),
+        title: const Text("All support products"),
       ),
       body: Container(
         padding: const EdgeInsets.all(40),
@@ -40,13 +42,12 @@ class SupportListPage extends StatelessWidget {
               height: 50,
             ),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 3,
-                children: List.generate(supportProducts.length, (index) {
-                  return ProductCard(product: supportProducts[index]);
-                }),
-              ),
-            )
+                child: GridView.count(
+                    crossAxisCount: 3,
+                    children: List.generate(
+                        supportProducts.length,
+                        (index) =>
+                            ProductCard(product: supportProducts[index]))))
           ],
         ),
       ),

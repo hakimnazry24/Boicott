@@ -1,8 +1,9 @@
 import 'package:boicott/components/ProductCard.dart';
 import 'package:boicott/models/product.dart';
+import 'package:boicott/pages/list_page/boycott_list_page.dart';
+import 'package:boicott/pages/list_page/support_list_page.dart';
 import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
-import "package:boicott/util/product_list.dart";
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,8 +38,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     products = Provider.of<DataProvider>(context).products;
-    boycottProducts = products.where((product) => product.productStatus == 2).toList();
-    supportProducts = products.where((product) => product.productStatus == 1).toList();
+    boycottProducts =
+        products.where((product) => product.productStatus == 2).toList();
+    supportProducts =
+        products.where((product) => product.productStatus == 1).toList();
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -66,9 +69,23 @@ class _HomePageState extends State<HomePage> {
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
-                      "More ->",
-                      style: TextStyle(color: Colors.grey),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BoycottListPage()));
+                      },
+                      child: Row(
+                        children: [
+                          const Text(
+                            "More",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.grey,
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -98,9 +115,23 @@ class _HomePageState extends State<HomePage> {
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    const Text(
-                      "More ->",
-                      style: TextStyle(color: Colors.grey),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SupportListPage()));
+                      },
+                      child: Row(
+                        children: [
+                          const Text(
+                            "More",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.grey,
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),

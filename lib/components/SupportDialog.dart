@@ -26,7 +26,9 @@ class SupportDialog extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            // Image.asset(product.image, width: 200),
+            Image.network(
+                width: 120,
+                "https://boicott-api.motionu.club/images/supportccccc/${product.image}"),
             const SizedBox(
               height: 10,
             ),

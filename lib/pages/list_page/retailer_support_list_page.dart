@@ -5,20 +5,21 @@ import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BoycottListPage extends StatelessWidget {
-  List<Product> boycottProducts = [];
-
-  BoycottListPage({super.key});
+class RetailerSupportListPage extends StatelessWidget {
+  Retailer retailer;
+  List<Product> products = [];
+  List<Product> supportProducts = [];
+  RetailerSupportListPage({super.key, required this.retailer});
 
   @override
   Widget build(BuildContext context) {
-    final products = Provider.of<DataProvider>(context).products;
-    boycottProducts =
-        products.where((product) => product.productStatus == 2).toList();
+    products = Provider.of<DataProvider>(context).products;
+    supportProducts =
+        products.where((product) => product.productStatus == 1).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All boycott products"),
+        title: Text("Support products at ${retailer.name}"),
       ),
       body: Container(
         padding: const EdgeInsets.all(40),
@@ -27,7 +28,7 @@ class BoycottListPage extends StatelessWidget {
           children: [
             const Text(
                 textAlign: TextAlign.left,
-                "Find boycott product based on Company name, Product name or bar code number."),
+                "Find support product based on Company name, Product name or bar code number."),
             const SizedBox(
               height: 10,
             ),
@@ -44,8 +45,10 @@ class BoycottListPage extends StatelessWidget {
             Expanded(
               child: GridView.count(
                   crossAxisCount: 3,
-                  children: List.generate(boycottProducts.length,
-                      (index) => ProductCard(product: boycottProducts[index]))),
+                  children: supportProducts
+                      .where((product) => product.retailerId == retailer.id)
+                      .map((product) => ProductCard(product: product))
+                      .toList()),
             )
           ],
         ),

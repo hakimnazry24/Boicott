@@ -5,10 +5,11 @@ import 'package:boicott/util/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BoycottListPage extends StatelessWidget {
+class RetailerBoycottListPage extends StatelessWidget {
+  Retailer retailer;
   List<Product> boycottProducts = [];
 
-  BoycottListPage({super.key});
+  RetailerBoycottListPage({super.key, required this.retailer});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class BoycottListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All boycott products"),
+        title: Text("Boycott products at ${retailer.name}"),
       ),
       body: Container(
         padding: const EdgeInsets.all(40),
@@ -43,9 +44,12 @@ class BoycottListPage extends StatelessWidget {
             ),
             Expanded(
               child: GridView.count(
-                  crossAxisCount: 3,
-                  children: List.generate(boycottProducts.length,
-                      (index) => ProductCard(product: boycottProducts[index]))),
+                crossAxisCount: 3,
+                children: boycottProducts
+                    .where((product) => product.companyId == retailer.id)
+                    .map((product) => ProductCard(product: product))
+                    .toList(),
+              ),
             )
           ],
         ),
